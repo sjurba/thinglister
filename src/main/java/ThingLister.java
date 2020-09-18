@@ -1,15 +1,17 @@
+import java.io.File;
+
 public class ThingLister {
 
 
-    public void parseThings(String filename) throws Exception {
-        ThingsHandler handler = new ThingsHandler()
+    public void parseThings(File folder) throws Exception {
+        ThingsHandler handler = new ThingsHandler(folder)
             .register("dogs", new DogHandler())
             .register("people", new PeopleHandler());
         FileParser parser = new FileParser(handler);
-        parser.parseFile(filename);
+        parser.parseFile(new File(folder, "things.csv"));
     }
 
     public static void main(String[] args) throws Exception {
-        new ThingLister().run("src/main/resources/things.csv");
+        new ThingLister().parseThings(new File("src/main/resources"));
     }
 }

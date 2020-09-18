@@ -8,9 +8,8 @@ public class FileParser {
         this.handler = handler;
     }
 
-    public void parseFile(String filename) {
+    public void parseFile(File file) {
         try {
-            File file = new File(filename);
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String line;
             while ((line = reader.readLine()) != null) {
