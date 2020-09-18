@@ -22,31 +22,15 @@ public class ThingLister {
     }
 
     private void parseDogs(String filename) throws Exception {
-        var reader = new BufferedReader(new FileReader(filename));
-        String line;
-        while((line = reader.readLine())!= null) {
-            var split = line.split(";");
-            if (split.length == 2) {
-                System.out.println(split[0] + " is " + split[1] + "'s dog");
-            } else if (split.length == 1) {
-                System.out.println(split[0] + "is a stray dog");
-            }
-        }
+        DogHandler handler = new DogHandler();
+        FileParser parser = new FileParser(handler);
+        parser.parseFile(filename);
     }
 
     private void parsePeople(String filename) throws Exception {
-        var reader = new BufferedReader(new FileReader(filename));
-        String line;
-        while((line = reader.readLine())!= null) {
-            var split = line.split(";");
-            if (split.length == 3) {
-                System.out.println(split[0] + ", " + split[1] + " and " + split[2] + " is in a polyamorous relationship.");
-            } if (split.length == 2) {
-                System.out.println(split[0] + " is in a relationship with " + split[1]);
-            } else if (split.length == 1) {
-                System.out.println(split[0] + "is single and ready to mingle");
-            }
-        }
+        PeopleHandler handler = new PeopleHandler();
+        FileParser parser = new FileParser(handler);
+        parser.parseFile(filename);
     }
 
     public static void main(String[] args) throws Exception {
