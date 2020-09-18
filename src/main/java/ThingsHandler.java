@@ -1,21 +1,20 @@
+import java.util.*;
+
 public class ThingsHandler implements LineHandler{
+
+    private final Map<String, LineHandler> handlers = new HashMap<>();
+
     @Override
     public void handleLine(String[] split) {
         String type = split[0];
         String file = split[1];
-        switch (type) {
-            case "dogs":
-                parseType(file, new DogHandler());
-                break;
-            case "people":
-                parseType(file, new PeopleHandler());
-                break;
-        }
+        FileParser parser = new FileParser(handlers.get(type));
+        parser.parseFile("src/main/resources/" + file);
     }
 
-    private void parseType(String file, LineHandler handler) {
-        FileParser parser = new FileParser(handler);
-        parser.parseFile("src/main/resources/" + file);
+    public ThingsHandler register(String type, LineHandler handler){
+        handlers.put(type, handler);
+        return this;
     }
 
 

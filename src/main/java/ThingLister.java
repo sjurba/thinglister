@@ -1,8 +1,10 @@
 public class ThingLister {
 
 
-    public void run(String filename) throws Exception {
-        ThingsHandler handler = new ThingsHandler();
+    public void parseThings(String filename) throws Exception {
+        ThingsHandler handler = new ThingsHandler()
+            .register("dogs", new DogHandler())
+            .register("people", new PeopleHandler());
         FileParser parser = new FileParser(handler);
         parser.parseFile(filename);
     }
